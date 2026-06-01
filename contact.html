@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<title>Contact Us | Ash &amp; Oak Tree Care</title>
+<meta name="description" content="Get in touch with Ben at Ash & Oak Tree Care. Call, text, email, or send a message. ISA Certified Arborist serving Cache Valley, Utah.">
+<link rel="canonical" href="https://ashandoaktree.com/contact.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ashandoaktree.com/contact.html">
+<meta property="og:title" content="Contact Us - Ash &amp; Oak Tree Care">
+<meta property="og:description" content="Call, text, email, or send a message.">
+<meta property="og:image" content="https://ashandoaktree.com/assets/img/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<!-- TODO: replace Formspree form ID below with the real one -->
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ash and Oak Tree Care, home">
+      <img src="assets/img/logo-mark.png" alt="" class="mark" aria-hidden="true">
+      <span>Ash &amp; Oak</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="commercial.html">Commercial</a></li>
+      <li><a href="service-areas.html">Service Areas</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:+18015418457" class="nav-phone" aria-label="Call (801) 541-8457">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.05-.24c1.16.39 2.4.6 3.67.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.27.21 2.51.6 3.67a1 1 0 0 1-.24 1.05l-2.24 2.07z"/></svg>
+        <span class="label">(801) 541-8457</span>
+      </a>
+      <a href="pay.html" class="nav-cta-outline">Pay Bill</a>
+      <a href="request-quote.html" class="nav-cta">Request a Quote</a>
+    </div>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="commercial.html">Commercial</a>
+  <a href="service-areas.html">Service Areas</a>
+  <a href="faq.html">FAQ</a>
+  <a href="index.html#about">About</a>
+  <a href="request-quote.html">Request a Quote</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="pay.html">Pay Bill Online</a>
+  <a href="tel:+18015418457" class="mm-phone">Call (801) 541-8457</a>
+</div>
+
+<header class="page-hero">
+  <div class="container">
+    <div class="hero-eyebrow">Contact Us</div>
+    <h1>Get in touch.</h1>
+    <p>For a quote with photos, the <a href="request-quote.html">quote form</a> is faster. For everything else, the channels below all branch through to Ben directly.</p>
+  </div>
+</header>
+
+<section class="form-wrap">
+  <div class="container">
+    <div class="form-card">
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 36px;">
+        <div>
+          <div style="font-size:0.85rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin-bottom:10px;">Call or text</div>
+          <a href="tel:+18015418457" style="font-family:'Fraunces',Georgia,serif;font-size:1.5rem;color:var(--olive-deep);">(801) 541-8457</a>
+          <p style="margin-top:10px;font-size:0.92rem;color:var(--ink-soft);">Best for storm damage, hazards, or same-day answers.</p>
+        </div>
+        <div>
+          <div style="font-size:0.85rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bronze);font-weight:600;margin-bottom:10px;">Email</div>
+          <a href="mailto:ben@ashandoaktree.com" style="font-family:'Fraunces',Georgia,serif;font-size:1.5rem;color:var(--olive-deep);">ben@ashandoaktree.com</a>
+          <p style="margin-top:10px;font-size:0.92rem;color:var(--ink-soft);">Best for non-urgent questions or follow-up on an active job.</p>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--line);padding-top:36px;">
+        <h2 style="margin-top:0;margin-bottom:20px;font-size:1.5rem;">Send a message</h2>
+
+        <div id="formError" class="form-error" role="alert" aria-live="polite"></div>
+
+        <form id="contactForm"
+              action="https://formspree.io/f/REPLACE_ME"
+              method="POST"
+              novalidate>
+
+          <input type="hidden" name="_subject" value="New message from Ash & Oak site">
+
+          <div class="field">
+            <label for="name">Your name<span class="required-star" aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+
+          <div class="field">
+            <label for="email">Email<span class="required-star" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone <span class="hint" style="text-transform:none;letter-spacing:0;font-weight:400;">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(435) 555-0123">
+          </div>
+
+          <div class="field">
+            <label for="message">Message<span class="required-star" aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" required minlength="10" placeholder="What's on your mind?"></textarea>
+          </div>
+
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <div class="fallback">Or call / text <a href="tel:+18015418457" style="color:var(--bronze);">(801) 541-8457</a>.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>&copy; <span id="year"></span> Ash &amp; Oak Tree Care. Cache Valley, Utah. Family-run and growing.</div>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="commercial.html">Commercial</a>
+      <a href="service-areas.html">Service Areas</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="pay.html">Pay Bill Online</a>
+      <a href="assets/downloads/cache-valley-fruit-tree-pruning-calendar.pdf" class="footer-download" download>Free pruning calendar (PDF)</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
