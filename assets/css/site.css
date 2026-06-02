@@ -6,7 +6,7 @@
    ============================================================= */
 
 :root {
-  color-scheme: only light;
+  color-scheme: light dark;
   --olive: #4a5320;
   --olive-deep: #363c17;
   --olive-soft: #6a7438;
@@ -1513,18 +1513,6 @@ section { scroll-margin-top: 90px; }
 
   
 
-  /* ── Mobile gets a pure cream body, no texture, no section tints ──
-     Phone browsers' auto-dark inverts complex SVG backgrounds.
-     Pure cream + transparent sections = cream everywhere, no inversion target. */
-  body {
-    background-color: #f4eee0 !important;
-    background-image: none !important;
-  }
-  .services { background: transparent !important; }
-  .about { background: transparent !important; }
-  .contact { background: rgba(54, 60, 23, 0.92) !important; }
-  .cta-banner { background: rgba(54, 60, 23, 0.92) !important; }
-  .footer { background: rgba(54, 60, 23, 0.94) !important; }
 
   /* Page-hero sections (services/faq/etc) - same treatment */
   .page-hero { padding: calc(var(--nav-h) + 48px) 0 60px; }
@@ -1541,11 +1529,12 @@ section { scroll-margin-top: 90px; }
    no matter what the system theme is. The texture is the brand.
    ============================================================= */
 
-html { color-scheme: only light; }
 
 @media (prefers-color-scheme: dark) {
+  /* Our "dark mode" is just the same cream design. Declaring it tells
+     the browser we have an intentional theme so it won't try to auto-invert.
+     Cream stays cream, the texture stays the texture. */
   html, body {
-    color-scheme: only light;
     background-color: var(--cream) !important;
     background-image: var(--tex-end-grain) !important;
     background-size: cover !important;
