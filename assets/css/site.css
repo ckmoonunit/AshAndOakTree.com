@@ -411,6 +411,10 @@ section { scroll-margin-top: 90px; }
 }
 
 @media (max-width: 720px) {
+  /* Hide wordmark text on mobile, logo image carries the brand */
+  .nav-logo > span { display: none; }
+  .nav-logo .mark { width: 48px; height: 48px; }
+
   .hero { padding: calc(var(--nav-h) + 60px) 0 80px; }
 }
 
@@ -1424,6 +1428,17 @@ section { scroll-margin-top: 90px; }
 }
 
 ::selection { background: var(--gold); color: var(--olive-deep); }
+
+/* Hard-block any browser auto-dark inversion. color-scheme + explicit values. */
+html { color-scheme: only light; }
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: var(--cream) !important;
+    color: var(--ink) !important;
+    color-scheme: only light;
+  }
+}
+
 
 /* =============================================================
    Mobile cleanup - dramatic simplification at 720px and below
