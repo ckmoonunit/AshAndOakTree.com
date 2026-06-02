@@ -6,6 +6,7 @@
    ============================================================= */
 
 :root {
+  color-scheme: only light;
   --olive: #4a5320;
   --olive-deep: #363c17;
   --olive-soft: #6a7438;
@@ -138,11 +139,10 @@ section { scroll-margin-top: 90px; }
 }
 
 .nav-logo .mark {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
   display: inline-block;
-  border-radius: 50%;
 }
 
 .nav-links {
@@ -256,24 +256,35 @@ section { scroll-margin-top: 90px; }
   top: var(--nav-h); left: 0; right: 0;
   background: var(--cream);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 12px 30px rgba(54, 60, 23, 0.12);
   display: none;
   flex-direction: column;
-  padding: 16px 24px 24px;
-  gap: 4px;
+  padding: 28px 28px 32px;
+  gap: 2px;
   z-index: 49;
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
   color: var(--olive-deep);
-  padding: 12px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 .mobile-menu a:last-child { border: 0; }
 .mobile-menu .mm-phone {
-  margin-top: 8px;
+  margin-top: 14px;
   font-weight: 600;
   color: var(--bronze);
+  font-size: 1.15rem;
+}
+
+/* Hide secondary items from mobile menu - cleaner shorter list */
+.mobile-menu a[href$="#about"],
+.mobile-menu a[href$="#contact"],
+.mobile-menu a[href="faq.html"],
+.mobile-menu a[href="contact.html"] {
+  display: none;
 }
 
 @media (max-width: 1020px) {
@@ -484,6 +495,10 @@ section { scroll-margin-top: 90px; }
   margin-bottom: 18px;
   box-shadow: 0 4px 14px rgba(74, 83, 32, 0.25);
 }
+
+/* Hide the small icons on service cards - cleaner look */
+.svc .svc-icon { display: none; }
+
 
 .svc h3 {
   margin-bottom: 8px;
