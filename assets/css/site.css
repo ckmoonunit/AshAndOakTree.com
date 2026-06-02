@@ -752,7 +752,13 @@ section { scroll-margin-top: 90px; }
 .contact {
   position: relative;
   padding: 110px 0;
-  background: rgba(54, 60, 23, 0.72);
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(rgba(54, 60, 23, 0.72), rgba(54, 60, 23, 0.72)),
+    var(--tex-end-grain);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
   color: var(--cream);
   overflow: hidden;
 }
@@ -812,7 +818,13 @@ section { scroll-margin-top: 90px; }
    ============================================================= */
 
 .footer {
-  background: rgba(54, 60, 23, 0.78);
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(rgba(54, 60, 23, 0.78), rgba(54, 60, 23, 0.78)),
+    var(--tex-end-grain);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
   color: rgba(244, 238, 224, 0.65);
   padding: 36px 0;
   border-top: 1px solid rgba(199, 154, 62, 0.22);
@@ -1328,7 +1340,13 @@ section { scroll-margin-top: 90px; }
 
 .cta-banner {
   padding: 80px 0;
-  background: rgba(74, 83, 32, 0.72);
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(rgba(74, 83, 32, 0.72), rgba(74, 83, 32, 0.72)),
+    var(--tex-end-grain);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
   color: var(--cream);
   text-align: center;
   position: relative;
