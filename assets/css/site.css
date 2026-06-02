@@ -1409,3 +1409,96 @@ section { scroll-margin-top: 90px; }
 }
 
 ::selection { background: var(--gold); color: var(--olive-deep); }
+
+/* =============================================================
+   Mobile cleanup - dramatic simplification at 720px and below
+   Desktop layout untouched. Hide non-essential sections,
+   add breathing room, let the wood texture show through.
+   ============================================================= */
+
+@media (max-width: 720px) {
+
+  /* ── Sections hidden on mobile ──────────────────────────
+     CTA banner is redundant (Contact is right below it).
+     Easy Steps strip duplicates info in services.
+     Portrait card is a placeholder anyway.
+     About paragraphs 2 + 4 are cuttable; pull quote + credentials carry the brand. */
+  .cta-banner,
+  .easy-strip,
+  .about .portrait,
+  .contact .area-list { display: none; }
+
+  .about .about-grid > div > p:nth-of-type(2),
+  .about .about-grid > div > p:nth-of-type(4) { display: none; }
+
+  /* Footer: keep the first 4 links, drop the rest */
+  .footer-links a:nth-child(n+5) { display: none; }
+
+  /* ── More breathing room ────────────────────────────── */
+  .hero { padding: calc(var(--nav-h) + 56px) 0 88px; }
+  .services { padding: 80px 0; }
+  .about { padding: 76px 0; }
+  .contact { padding: 80px 0; }
+  .footer { padding: 32px 0; }
+
+  /* Bigger headlines, more vertical rhythm */
+  .hero h1 {
+    font-size: clamp(3rem, 11vw, 4rem);
+    margin-bottom: 28px;
+    line-height: 1.08;
+  }
+  .hero-lede {
+    margin-bottom: 32px;
+    line-height: 1.7;
+    font-size: 1.1rem;
+  }
+  .feature-pill { margin-bottom: 32px; }
+
+  /* Section headers breathe more */
+  .section-head { margin-bottom: 44px; }
+  .section-head h2 { line-height: 1.18; }
+  .section-head p { font-size: 1rem; }
+
+  /* Service cards: roomier padding */
+  .svc {
+    padding: 30px 26px;
+    border-radius: var(--radius-lg);
+  }
+  .svc h3 { font-size: 1.18rem; margin-bottom: 10px; }
+  .svc p { font-size: 0.98rem; line-height: 1.65; }
+  .svc-grid { gap: 18px; }
+
+  /* About section: more vertical rhythm, larger pull quote */
+  .about h2 { line-height: 1.15; margin-bottom: 22px; }
+  .about p { font-size: 1.08rem; line-height: 1.75; }
+  .about .pull {
+    font-size: 1.3rem;
+    margin: 36px 0;
+    line-height: 1.5;
+  }
+  .credentials { margin-top: 28px; gap: 8px; }
+  .signature { margin-top: 36px; }
+
+  /* Contact: stack cards with more space, bigger touch targets */
+  .contact .contact-grid { gap: 24px; }
+  .contact-card { padding: 28px 26px; }
+  .contact-card a.big { font-size: 1.35rem; }
+
+  /* Footer: simpler, more vertical space */
+  .footer { font-size: 0.85rem; }
+  .footer-inner { gap: 18px; }
+  .footer-links { gap: 14px; }
+
+  /* Body copy slightly more line-height for breathing */
+  body { line-height: 1.7; }
+
+  /* Page-hero sections (services/faq/etc) - same treatment */
+  .page-hero { padding: calc(var(--nav-h) + 48px) 0 60px; }
+  .page-hero h1 { font-size: clamp(2.4rem, 9vw, 3.2rem); }
+  .simple { padding: calc(var(--nav-h) + 48px) 0 80px; }
+
+  /* Services deep-dive: more space between sections */
+  .svc-deep { padding: 60px 0; }
+  .svc-deep h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+}
+
