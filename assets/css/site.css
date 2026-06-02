@@ -1522,6 +1522,21 @@ html { color-scheme: only light; }
   /* Body copy slightly more line-height for breathing */
   body { line-height: 1.7; }
 
+  
+
+  /* ── Mobile gets a pure cream body, no texture, no section tints ──
+     Phone browsers' auto-dark inverts complex SVG backgrounds.
+     Pure cream + transparent sections = cream everywhere, no inversion target. */
+  body {
+    background-color: #f4eee0 !important;
+    background-image: none !important;
+  }
+  .services { background: transparent !important; }
+  .about { background: transparent !important; }
+  .contact { background: rgba(54, 60, 23, 0.92) !important; }
+  .cta-banner { background: rgba(54, 60, 23, 0.92) !important; }
+  .footer { background: rgba(54, 60, 23, 0.94) !important; }
+
   /* Page-hero sections (services/faq/etc) - same treatment */
   .page-hero { padding: calc(var(--nav-h) + 48px) 0 60px; }
   .page-hero h1 { font-size: clamp(2.4rem, 9vw, 3.2rem); }
