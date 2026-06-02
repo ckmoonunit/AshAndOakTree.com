@@ -752,7 +752,7 @@ section { scroll-margin-top: 90px; }
 .contact {
   position: relative;
   padding: 110px 0;
-  background: rgba(54, 60, 23, 0.84);
+  background: rgba(54, 60, 23, 0.72);
   color: var(--cream);
   overflow: hidden;
 }
@@ -812,7 +812,7 @@ section { scroll-margin-top: 90px; }
    ============================================================= */
 
 .footer {
-  background: rgba(54, 60, 23, 0.86);
+  background: rgba(54, 60, 23, 0.78);
   color: rgba(244, 238, 224, 0.65);
   padding: 36px 0;
   border-top: 1px solid rgba(199, 154, 62, 0.22);
@@ -1328,7 +1328,7 @@ section { scroll-margin-top: 90px; }
 
 .cta-banner {
   padding: 80px 0;
-  background: rgba(74, 83, 32, 0.86);
+  background: rgba(74, 83, 32, 0.72);
   color: var(--cream);
   text-align: center;
   position: relative;
