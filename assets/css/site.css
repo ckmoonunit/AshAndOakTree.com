@@ -1429,17 +1429,6 @@ section { scroll-margin-top: 90px; }
 
 ::selection { background: var(--gold); color: var(--olive-deep); }
 
-/* Hard-block any browser auto-dark inversion. color-scheme + explicit values. */
-html { color-scheme: only light; }
-@media (prefers-color-scheme: dark) {
-  html, body {
-    background-color: var(--cream) !important;
-    color: var(--ink) !important;
-    color-scheme: only light;
-  }
-}
-
-
 /* =============================================================
    Mobile cleanup - dramatic simplification at 720px and below
    Desktop layout untouched. Hide non-essential sections,
@@ -1545,5 +1534,25 @@ html { color-scheme: only light; }
   /* Services deep-dive: more space between sections */
   .svc-deep { padding: 60px 0; }
   .svc-deep h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+}
+
+/* =============================================================
+   Force light, always. Body stays cream with wood-grain texture
+   no matter what the system theme is. The texture is the brand.
+   ============================================================= */
+
+html { color-scheme: only light; }
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    color-scheme: only light;
+    background-color: var(--cream) !important;
+    background-image: var(--tex-end-grain) !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    color: var(--ink) !important;
+  }
 }
 
