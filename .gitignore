@@ -1,0 +1,11 @@
+# Internal planning docs. This repo is public (GitHub Pages), so anything with
+# business strategy, addresses, or notes stays local and is never published.
+NEED-TO-DO.md
+FUTURE-IDEAS.md
+/internal/
+/marketing/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
