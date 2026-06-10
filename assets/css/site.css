@@ -757,8 +757,11 @@ section { scroll-margin-top: 90px; }
     linear-gradient(rgba(54, 60, 23, 0.72), rgba(54, 60, 23, 0.72)),
     var(--tex-end-grain);
   background-size: cover, cover;
-  background-position: center, center;
+  background-position: center top, center top;
   background-repeat: no-repeat, no-repeat;
+  /* Texture layer pinned to the viewport (cover/center top/fixed) so it lines
+     up with the body grain and stays continuous as the page scrolls. */
+  background-attachment: scroll, fixed;
   color: var(--cream);
   overflow: hidden;
 }
@@ -823,8 +826,10 @@ section { scroll-margin-top: 90px; }
     linear-gradient(rgba(54, 60, 23, 0.78), rgba(54, 60, 23, 0.78)),
     var(--tex-end-grain);
   background-size: cover, cover;
-  background-position: center, center;
+  background-position: center top, center top;
   background-repeat: no-repeat, no-repeat;
+  /* Match the body grain: texture layer fixed to the viewport. */
+  background-attachment: scroll, fixed;
   color: rgba(244, 238, 224, 0.65);
   padding: 36px 0;
   border-top: 1px solid rgba(199, 154, 62, 0.22);
@@ -1345,8 +1350,10 @@ section { scroll-margin-top: 90px; }
     linear-gradient(rgba(74, 83, 32, 0.72), rgba(74, 83, 32, 0.72)),
     var(--tex-end-grain);
   background-size: cover, cover;
-  background-position: center, center;
+  background-position: center top, center top;
   background-repeat: no-repeat, no-repeat;
+  /* Match the body grain: texture layer fixed to the viewport. */
+  background-attachment: scroll, fixed;
   color: var(--cream);
   text-align: center;
   position: relative;
