@@ -740,6 +740,45 @@ section { scroll-margin-top: 90px; }
 
 .portrait > * { position: relative; z-index: 1; }
 
+.portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  z-index: 1;
+}
+
+.ben-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 56px;
+}
+
+.ben-gallery figure { margin: 0; }
+
+.ben-gallery img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-warm);
+  display: block;
+}
+
+.ben-gallery figcaption {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+@media (max-width: 820px) {
+  .ben-gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 40px; }
+}
+
 @media (max-width: 860px) {
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about { padding: 80px 0; }
@@ -841,8 +880,57 @@ section { scroll-margin-top: 90px; }
 .footer-inner {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 20px;
-  align-items: center;
+  gap: 24px;
+  align-items: start;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.footer-slogan {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--gold);
+}
+
+.footer-addresses,
+.footer-area {
+  font-size: 0.82rem;
+  color: rgba(244, 238, 224, 0.55);
+}
+
+.values { padding: 96px 0; }
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.value {
+  background: rgba(235, 226, 204, 0.4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 30px 28px;
+}
+
+.value h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.4rem;
+  color: var(--olive-deep);
+  margin-bottom: 10px;
+}
+
+.value p { color: var(--ink-soft); }
+
+@media (max-width: 820px) {
+  .values { padding: 72px 0; }
+  .values-grid { grid-template-columns: 1fr; gap: 16px; }
 }
 
 .footer-links {
@@ -1469,11 +1557,7 @@ section { scroll-margin-top: 90px; }
      About paragraphs 2 + 4 are cuttable; pull quote + credentials carry the brand. */
   .cta-banner,
   .easy-strip,
-  .about .portrait,
   .contact .area-list { display: none; }
-
-  .about .about-grid > div > p:nth-of-type(2),
-  .about .about-grid > div > p:nth-of-type(4) { display: none; }
 
   /* Footer: keep the first 4 links, drop the rest */
   .footer-links a:nth-child(n+5) { display: none; }
