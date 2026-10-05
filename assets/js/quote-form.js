@@ -158,7 +158,7 @@
 
     // Bail if Formspree form ID hasn't been set yet (placeholder check)
     if (form.action.indexOf('REPLACE_ME') !== -1) {
-      showError('Form is not wired up yet. Call or text (801) 541-8457 and we will get back to you.');
+      showError('Online requests are not open yet. Call or text Ben at (435) 258-9679 and he will get back to you.');
       return;
     }
 
@@ -186,7 +186,7 @@
       .catch(function (err) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
-        showError(err.message + ' Or call / text (801) 541-8457.');
+        showError(err.message + ' Or call or text Ben at (435) 258-9679.');
       });
   });
 })();
