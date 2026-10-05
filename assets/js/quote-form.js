@@ -148,8 +148,8 @@
     if (!name)    return 'Please add your name.';
     if (!phone)   return 'Please add a phone number so we can reach you.';
     if (!address) return 'Please add a property address (city is fine if the street is fuzzy).';
-    if (details.length < 20) return 'A couple more sentences please. Twenty characters minimum so we know what we are walking into.';
-    if (!bestTime) return 'Pick a best time to reach you.';
+    if (details.length < 20) return 'Please add a little more about the work (at least 20 characters).';
+    if (!bestTime) return 'Please choose a best time to reach you.';
     return null;
   }
 
