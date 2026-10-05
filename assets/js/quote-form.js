@@ -1,10 +1,12 @@
 /* =============================================================
    quote-form.js - Ash & Oak quote page
    - File previews with individual remove
-   - 8-photo limit, 10MB-per-photo limit
+   - 8-photo limit, 25MB-per-photo intake limit
    - Drag-and-drop on desktop, capture on mobile
    - Client-side validation
-   - Formspree POST with multipart, fallback messaging
+   - Photos shrunk in the browser before sending (FormSubmit caps a
+     submission at 10MB total; this also strips GPS/EXIF)
+   - Native multipart POST to FormSubmit (see forms.js for the LIVE switch)
    ============================================================= */
 
 (function () {
@@ -22,7 +24,9 @@
   var replyToHidden = document.getElementById('replyToHidden');
 
   var MAX_FILES = 8;
-  var MAX_SIZE = 10 * 1024 * 1024; // 10 MB
+  var MAX_SIZE = 25 * 1024 * 1024;     // intake limit per photo, before shrinking
+  var MAX_TOTAL = 9.5 * 1024 * 1024;   // FormSubmit hard cap is 10MB per submission
+  var MAX_EDGE = 1600;                 // px, long edge after shrinking
   var selectedFiles = [];
 
   function showError(msg) {
@@ -81,7 +85,7 @@
         return;
       }
       if (file.size > MAX_SIZE) {
-        rejected.push(file.name + ' (over 10MB)');
+        rejected.push(file.name + ' (over 25MB)');
         return;
       }
       if (selectedFiles.length >= MAX_FILES) {
@@ -126,7 +130,7 @@
     }
   });
 
-  // Mirror email into hidden _replyto for Formspree
+  // Mirror email into hidden _replyto so Ben can hit Reply
   if (emailInput && replyToHidden) {
     emailInput.addEventListener('input', function () {
       replyToHidden.value = emailInput.value;
@@ -149,6 +153,52 @@
     return null;
   }
 
+  // Re-encode a photo as a JPEG no larger than MAX_EDGE on its long side.
+  // Drawing to a canvas drops EXIF, so customer GPS never reaches the inbox.
+  function shrink(file) {
+    return new Promise(function (resolve) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var scale = Math.min(1, MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.naturalWidth * scale);
+        canvas.height = Math.round(img.naturalHeight * scale);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(function (blob) {
+          if (!blob) return resolve(file);
+          var name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+          resolve(new File([blob], name, { type: 'image/jpeg' }));
+        }, 'image/jpeg', 0.82);
+      };
+      // Browser cannot decode it (e.g. HEIC outside Safari): send the original.
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  function shrinkAll(files) {
+    return Promise.all(files.map(shrink));
+  }
+
+  // One file per input: FormSubmit attaches every file input it receives.
+  function attachFiles(files) {
+    fileInput.removeAttribute('name'); // originals stay out of the POST
+    Array.prototype.forEach.call(form.querySelectorAll('input[data-attach]'), function (el) { el.remove(); });
+    files.forEach(function (f, i) {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.name = 'photo_' + (i + 1);
+      input.hidden = true;
+      input.setAttribute('data-attach', '');
+      var dt = new DataTransfer();
+      dt.items.add(f);
+      input.files = dt.files;
+      form.appendChild(input);
+    });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     clearError();
@@ -156,32 +206,27 @@
     var msg = validate();
     if (msg) { showError(msg); return; }
 
-    // Bail if Formspree form ID hasn't been set yet (placeholder check)
-    if (form.action.indexOf('REPLACE_ME') !== -1) {
-      showError('Online requests are not open yet. Call or text Ben at (435) 258-9679 and he will get back to you.');
+    // Not live until FormSubmit is activated (forms.js)
+    var cfg = window.ASH_FORMS || { live: false, fallback: '' };
+    if (!cfg.live) {
+      showError(cfg.fallback);
       return;
     }
 
     submitBtn.disabled = true;
     var originalLabel = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
+    submitBtn.textContent = selectedFiles.length ? 'Preparing photos...' : 'Sending...';
 
-    var data = new FormData(form);
-
-    fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    })
-      .then(function (res) {
-        if (res.ok) {
-          window.location.href = 'request-quote-thanks.html';
-        } else {
-          return res.json().then(function (body) {
-            var detail = (body && body.errors && body.errors.length) ? body.errors.map(function (x) { return x.message; }).join(', ') : 'Something went sideways on submit.';
-            throw new Error(detail);
-          });
+    shrinkAll(selectedFiles)
+      .then(function (files) {
+        var total = files.reduce(function (sum, f) { return sum + f.size; }, 0);
+        if (total > MAX_TOTAL) {
+          throw new Error('Those photos are too large to send together. Remove a few and try again.');
         }
+        attachFiles(files);
+        submitBtn.textContent = 'Sending...';
+        // Native submit: bypasses this listener, POSTs multipart, FormSubmit redirects to _next.
+        HTMLFormElement.prototype.submit.call(form);
       })
       .catch(function (err) {
         submitBtn.disabled = false;
