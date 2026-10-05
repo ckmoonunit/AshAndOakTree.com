@@ -879,7 +879,9 @@ section { scroll-margin-top: 90px; }
 
 .footer-inner {
   display: grid;
-  grid-template-columns: 1fr auto;
+  /* Brand column gets a floor; links wrap instead of claiming one long row
+     (with `auto`, every new link squeezed the brand column narrower). */
+  grid-template-columns: minmax(260px, 1fr) minmax(0, 1.6fr);
   gap: 24px;
   align-items: start;
 }
