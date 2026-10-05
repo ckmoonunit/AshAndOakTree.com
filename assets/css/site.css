@@ -199,6 +199,12 @@ section { scroll-margin-top: 90px; }
   padding: 10px 20px;
   border-radius: var(--radius);
   transition: background .2s;
+  white-space: nowrap;
+}
+
+/* Phones: keep the consult button on one line inside the bar */
+@media (max-width: 480px) {
+  .nav-cta { padding: 8px 12px; font-size: 0.9rem; }
 }
 
 .nav-cta:hover { background: var(--olive-deep); color: var(--cream) !important; }
