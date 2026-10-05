@@ -15,7 +15,7 @@
 (function () {
   'use strict';
 
-  var LIVE = false;
+  var LIVE = true;
   var FALLBACK = 'Online requests are not open yet. Call or text Ben at (435) 258-9679 and he will get back to you.';
 
   window.ASH_FORMS = { live: LIVE, fallback: FALLBACK };
