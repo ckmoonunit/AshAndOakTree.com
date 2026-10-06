@@ -764,33 +764,7 @@ section { scroll-margin-top: 90px; }
   z-index: 1;
 }
 
-.ben-gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-top: 56px;
-}
-
-.ben-gallery figure { margin: 0; }
-
-.ben-gallery img {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-warm);
-  display: block;
-}
-
-.ben-gallery figcaption {
-  margin-top: 8px;
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  text-align: center;
-}
-
 @media (max-width: 820px) {
-  .ben-gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 40px; }
 }
 
 @media (max-width: 860px) {
@@ -1668,4 +1642,172 @@ section { scroll-margin-top: 90px; }
     background-attachment: fixed !important;
     color: var(--ink) !important;
   }
+}
+
+
+/* =============================================================
+   On the job: photo rows that alternate sides and slide in on scroll
+   ============================================================= */
+.cascade { padding: 110px 0 40px; }
+
+.cascade-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 90px;
+}
+.cascade-right .cascade-media { order: 2; }
+
+.cascade-media {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm);
+}
+.cascade-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Photo slot waiting on Ben's pictures: wood grain + faint badge, reads as design */
+.cascade-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(ellipse at 50% 45%, rgba(74, 83, 32, 0.55) 0%, rgba(42, 47, 18, 0.86) 100%),
+    var(--tex-end-grain);
+  background-size: cover, 900px auto;
+  background-position: center, 40% 35%;
+}
+.cascade-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(199, 154, 62, 0.45);
+  border-radius: calc(var(--radius-lg) - 6px);
+  pointer-events: none;
+}
+.cascade-placeholder img {
+  width: 30%;
+  height: auto;
+  opacity: 0.5;
+}
+
+.cascade-copy h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+  color: var(--olive-deep);
+  margin: 10px 0 12px;
+  line-height: 1.2;
+}
+.cascade-copy p {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  max-width: 440px;
+}
+
+/* Slide-in: only armed once site.js adds .cascade-anim, so no-JS still shows everything */
+.cascade-anim .cascade-media,
+.cascade-anim .cascade-copy {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cascade-anim .cascade-left .cascade-media { transform: translateX(-70px); }
+.cascade-anim .cascade-right .cascade-media { transform: translateX(70px); }
+.cascade-anim .cascade-left .cascade-copy { transform: translateX(35px); transition-delay: 0.12s; }
+.cascade-anim .cascade-right .cascade-copy { transform: translateX(-35px); transition-delay: 0.12s; }
+.cascade-anim .cascade-row.is-in .cascade-media,
+.cascade-anim .cascade-row.is-in .cascade-copy {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 820px) {
+  .cascade { padding: 76px 0 20px; }
+  .cascade-row { grid-template-columns: 1fr; gap: 22px; margin-bottom: 56px; }
+  .cascade-right .cascade-media { order: 0; }
+  .cascade-anim .cascade-left .cascade-media { transform: translateX(-36px); }
+  .cascade-anim .cascade-right .cascade-media { transform: translateX(36px); }
+  .cascade-anim .cascade-copy { transform: translateY(16px) !important; }
+  .cascade-anim .cascade-row.is-in .cascade-copy { transform: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cascade-anim .cascade-media,
+  .cascade-anim .cascade-copy { opacity: 1; transform: none !important; transition: none; }
+}
+
+/* =============================================================
+   Reviews: real Google reviews only
+   ============================================================= */
+.reviews {
+  padding: 100px 0;
+  background: rgba(235, 226, 204, 0.45);
+}
+.reviews .section-head { margin-bottom: 26px; }
+.reviews-summary {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.reviews-score {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--olive-deep);
+}
+.reviews-stars {
+  color: #e2a420;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+}
+.reviews-count { color: var(--ink-soft); }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.review {
+  margin: 0;
+  background: #fbf7ee;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 30px 32px;
+  box-shadow: var(--shadow-card);
+}
+.review .reviews-stars { font-size: 1.05rem; }
+.review blockquote {
+  margin: 12px 0 18px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.review figcaption { font-weight: 600; color: var(--olive-deep); }
+.review figcaption span {
+  display: block;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.reviews-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 36px;
 }

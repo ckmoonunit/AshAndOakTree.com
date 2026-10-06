@@ -22,3 +22,16 @@
     });
   }
 })();
+
+/* On the job: slide each photo row in from its side as it scrolls into view */
+(function () {
+  var rows = document.querySelectorAll('.cascade-row');
+  if (!rows.length || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('cascade-anim');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+  Array.prototype.forEach.call(rows, function (r) { io.observe(r); });
+})();
