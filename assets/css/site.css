@@ -128,17 +128,12 @@ section { scroll-margin-top: 90px; }
   gap: 18px;
 }
 
-/* Wordmark ampersand: EB Garamond italic in the logo's gold. Only the "&" glyph
-   is downloaded (Google Fonts text=%26). */
+/* Wordmark ampersand: EB Garamond roman, same color as the words (Ben's pick, #3).
+   Only the "&" glyph is downloaded (Google Fonts text=%26). */
 .amp,
 .nav-logo .amp {
   font-family: 'EB Garamond', Georgia, serif;
-  font-style: italic;
   font-weight: 500;
-  font-size: 1.12em;
-  line-height: 0;
-  margin-right: 0.06em; /* italic leans into the next letter */
-  color: #b07d2e;
 }
 
 .nav-logo {
