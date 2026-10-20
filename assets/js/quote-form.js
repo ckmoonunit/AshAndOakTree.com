@@ -1,5 +1,5 @@
 /* =============================================================
-   quote-form.js - Ash & Oak quote page
+   quote-form.js - Ash & Oak consult request page
    - File previews with individual remove
    - 8-photo limit, 25MB-per-photo intake limit
    - Drag-and-drop on desktop, capture on mobile
@@ -141,16 +141,27 @@
   function validate() {
     var name = form.name.value.trim();
     var phone = form.phone.value.trim();
+    var email = form.email.value.trim();
     var address = form.address.value.trim();
-    var details = form.details.value.trim();
-    var bestTime = form.querySelector('input[name="best_time"]:checked');
+    var city = form.city.value.trim();
+    var times = form.preferred_times.value.trim();
 
     if (!name)    return 'Please add your name.';
-    if (!phone)   return 'Please add a phone number so we can reach you.';
-    if (!address) return 'Please add a property address (city is fine if the street is fuzzy).';
-    if (details.length < 20) return 'Please add a little more about the work (at least 20 characters).';
-    if (!bestTime) return 'Please choose a best time to reach you.';
+    if (!phone)   return 'Please add a phone number so Ben can reach you.';
+    if (!email || !form.email.checkValidity()) return 'Please add a valid email address.';
+    if (!address) return 'Please add the property address.';
+    if (!city)    return 'Please add the city.';
+    if (!times)   return 'Please give a few days and times that work for a visit.';
     return null;
+  }
+
+  // Subject line Ben sees in his inbox: "Consult request: Logan - Jane Doe"
+  function setSubject() {
+    var subject = document.getElementById('subjectHidden');
+    if (subject) {
+      subject.value = 'Consult request: ' + form.city.value.trim() + ' - ' + form.name.value.trim();
+    }
+    if (replyToHidden) replyToHidden.value = form.email.value.trim();
   }
 
   // Re-encode a photo as a JPEG no larger than MAX_EDGE on its long side.
@@ -213,6 +224,7 @@
       return;
     }
 
+    setSubject();
     submitBtn.disabled = true;
     var originalLabel = submitBtn.textContent;
     submitBtn.textContent = selectedFiles.length ? 'Preparing photos...' : 'Sending...';
