@@ -301,6 +301,13 @@ section { scroll-margin-top: 90px; }
   display: none;
 }
 
+/* Small laptops: Login + Request a consult + phone don't fit with the
+   full number, so the phone shrinks to its icon (same as below 1020). */
+@media (min-width: 1021px) and (max-width: 1120px) {
+  .nav-phone .label { display: none; }
+  .nav-phone { padding: 8px; background: rgba(74, 83, 32, 0.08); }
+}
+
 @media (max-width: 1020px) {
   .nav-links { display: none; }
   .nav-link-secondary { display: none; }
