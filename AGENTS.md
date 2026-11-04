@@ -38,16 +38,68 @@ ask the person who asked. Don't guess.
 - If a key ever gets committed or pushed: tell the human right away and **rotate the key**
   (make a new one, kill the old one). Deleting the line is not enough because git history
   is public.
-- GitHub access, smallest that works:
-  - **Agent runs git on a machine (best):** an SSH **deploy key** with write access, added
-    by the repo owner under Settings > Deploy keys. It works on this one repo and nothing
-    else. Only the public half (`.pub`) is ever shared; the private half stays on that machine.
-  - **Agent only takes a token:** a **classic** token with only the `public_repo` scope,
-    named for what it is (example: `grok-ashandoaktree`), 90-day expiration. Fine-grained
-    tokens do NOT work here: GitHub blocks them on repos where you're a collaborator.
-  - One key or token per agent, so one can be revoked without breaking the others.
+- GitHub access for agents: a **classic** token from the agent owner's account, `public_repo`
+  scope only, named `grok-ashandoaktree` (or `<agent>-ashandoaktree`), 90-day expiration.
+  Stored as `GITHUB_TOKEN` in the agent's secret store or `.env`. One token per agent.
+  Fine-grained tokens do NOT work here (GitHub blocks them for repo collaborators).
 - `scripts/check-site.sh` fails on tracked `.env` files, key files, and common token shapes.
   That is a backstop. It does not replace being careful.
+
+## Task process (how work gets assigned, done, and handed back)
+
+The site owner's side defines the tasks. Agents carry them out. No agent invents its own work.
+
+### Where tasks live: GitHub Issues
+- Every task is a GitHub Issue on this repo. If it isn't an Issue, it isn't a task.
+- Label `grok` = assigned to Grok agents. Label `claude` = assigned to Claude agents.
+  No label = not assigned yet, don't touch it.
+- One Issue = one change. If a task turns out to be two things, comment that on the Issue
+  and do only the first.
+
+### Two kinds of task
+| Kind | Examples | How it ships |
+| --- | --- | --- |
+| **Small** | Copy edits on an existing page using wording from Ben, typo fixes, a new FAQ entry, swapping in a new job photo, updating a service description | Push straight to `main` |
+| **Big** | A new page, nav changes, layout or CSS changes, any JS, forms, `<head>` / SEO tags, schema, sitemap, deleting or renaming anything, anything in "Do not touch" | Branch + Pull Request. A human merges. Never push these to `main` yourself |
+
+If you can't tell which kind it is, it's big.
+
+### Doing a small task
+1. `git pull --rebase`
+2. Comment on the Issue: `Starting this.` (so two agents don't do the same work)
+3. Make the change. Only that change.
+4. `bash scripts/check-site.sh` must print `check-site: all clear`.
+5. Commit. Message starts with the agent and ends with the Issue number:
+   `[grok] FAQ: add question about winter pruning (#12)`
+6. `git push origin main`. If rejected: `git pull --rebase`, re-run the check, push again.
+7. Wait about a minute. Confirm the GitHub Actions check on your commit is green and the
+   live page at https://ashandoaktree.com shows the change.
+8. Close the Issue with a comment: what changed, which file, the commit hash, the live URL.
+
+### Doing a big task
+1. `git pull --rebase`, then `git checkout -b grok/12-short-name` (agent, Issue number, topic).
+2. Comment on the Issue: `Starting this on branch grok/12-short-name.`
+3. Make the change. Run the check. Commit with the same message format.
+4. `git push origin grok/12-short-name` and open a Pull Request into `main`.
+   PR description: what changed, why, which pages to look at, and `Closes #12`.
+5. Stop there. A human (or the owner's Claude agent, when a human asks it to) reviews.
+   Fix any review comments on the same branch. Never merge your own PR.
+
+### When you're blocked
+- Missing a fact, a photo, or Ben's wording: comment on the Issue saying exactly what you
+  need, add the label `blocked`, and stop. Never fill the gap with a guess.
+- The check fails on something you didn't touch: comment on the Issue, don't "fix" other
+  people's work.
+- Something you pushed broke the live site: `git revert <your commit>`, push, then comment
+  on the Issue with what happened.
+
+### Working alongside other agents
+- Always `git pull --rebase` right before you start and right before you push.
+- Never edit a file another open PR is changing unless your Issue says to.
+- The review bot commits to `index.html` daily around 8:00 AM Mountain (commit message
+  starts with `Reviews:`). That's normal. Pull and carry on.
+- Git identity: set `user.name` to the agent's name (example: `Grok (for Ben Ash)`) so the
+  history shows who did what.
 
 ## How to work
 
