@@ -20,7 +20,8 @@ ask the person who asked. Don't guess.
 1. `git pull --rebase` before you start. Two people and their agents push here.
 2. Make one small, focused change. Do not "clean up" things you weren't asked to touch.
 3. Run `bash scripts/check-site.sh`. It must print `check-site: all clear`.
-4. Commit with a plain message that says what changed and why, then push.
+4. Commit with a plain message that says what changed and why, then push to `main`.
+   It goes live right away. That's intended.
 5. Never commit a secret. Never touch the files in "Do not touch" below.
 6. Never invent facts, reviews, prices, credentials, or stats. Only use what's in this file
    or what Ben gave you in writing.
@@ -56,34 +57,26 @@ The site owner's side defines the tasks. Agents carry them out. No agent invents
 - One Issue = one change. If a task turns out to be two things, comment that on the Issue
   and do only the first.
 
-### Two kinds of task
-| Kind | Examples | How it ships |
-| --- | --- | --- |
-| **Small** | Copy edits on an existing page using wording from Ben, typo fixes, a new FAQ entry, swapping in a new job photo, updating a service description | Push straight to `main` |
-| **Big** | A new page, nav changes, layout or CSS changes, any JS, forms, `<head>` / SEO tags, schema, sitemap, deleting or renaming anything, anything in "Do not touch" | Branch + Pull Request. A human merges. Never push these to `main` yourself |
+### Ship it live
+Every task pushes straight to `main` and goes live. No pull requests, no review step, no
+waiting on a human. Traffic is light, so a mistake live for a few minutes costs little,
+and seeing the change on the real site beats reviewing a diff.
 
-If you can't tell which kind it is, it's big.
+The one hard gate: **nothing secret goes in a push.** No tokens, keys, passwords, or `.env`
+files (see "Secrets and .env"). If `scripts/check-site.sh` fails, fix it before pushing.
 
-### Doing a small task
+### Doing a task
 1. `git pull --rebase`
 2. Comment on the Issue: `Starting this.` (so two agents don't do the same work)
 3. Make the change. Only that change.
 4. `bash scripts/check-site.sh` must print `check-site: all clear`.
-5. Commit. Message starts with the agent and ends with the Issue number:
+5. `git diff --staged` and look for anything secret one last time.
+6. Commit. Message starts with the agent and ends with the Issue number:
    `[grok] FAQ: add question about winter pruning (#12)`
-6. `git push origin main`. If rejected: `git pull --rebase`, re-run the check, push again.
-7. Wait about a minute. Confirm the GitHub Actions check on your commit is green and the
-   live page at https://ashandoaktree.com shows the change.
-8. Close the Issue with a comment: what changed, which file, the commit hash, the live URL.
-
-### Doing a big task
-1. `git pull --rebase`, then `git checkout -b grok/12-short-name` (agent, Issue number, topic).
-2. Comment on the Issue: `Starting this on branch grok/12-short-name.`
-3. Make the change. Run the check. Commit with the same message format.
-4. `git push origin grok/12-short-name` and open a Pull Request into `main`.
-   PR description: what changed, why, which pages to look at, and `Closes #12`.
-5. Stop there. A human (or the owner's Claude agent, when a human asks it to) reviews.
-   Fix any review comments on the same branch. Never merge your own PR.
+7. `git push origin main`. If rejected: `git pull --rebase`, re-run the check, push again.
+8. Wait about a minute. Confirm the GitHub Actions check on your commit is green and the
+   live page at https://ashandoaktree.com shows the change. Check it at phone width too.
+9. Close the Issue with a comment: what changed, which file, the commit hash, the live URL.
 
 ### When you're blocked
 - Missing a fact, a photo, or Ben's wording: comment on the Issue saying exactly what you
@@ -95,7 +88,6 @@ If you can't tell which kind it is, it's big.
 
 ### Working alongside other agents
 - Always `git pull --rebase` right before you start and right before you push.
-- Never edit a file another open PR is changing unless your Issue says to.
 - The review bot commits to `index.html` daily around 8:00 AM Mountain (commit message
   starts with `Reviews:`). That's normal. Pull and carry on.
 - Git identity: set `user.name` to the agent's name (example: `Grok (for Ben Ash)`) so the
