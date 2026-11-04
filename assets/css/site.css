@@ -1774,18 +1774,20 @@ section { scroll-margin-top: 90px; }
 .reviews-count { color: var(--ink-soft); }
 
 .reviews-grid {
-  /* Centered rows of up to 3 (the review bot shows up to 6) */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 22px;
+  /* Masonry columns: review lengths vary a lot (one line to a paragraph),
+     so cards stack tight instead of leaving empty rows or a lone orphan.
+     Columns appear as width allows (3 on desktop, 1 on phones). */
+  columns: 3 320px;
+  column-gap: 22px;
   max-width: 1100px;
   margin: 0 auto;
 }
+/* 1 or 2 reviews: don't spread them across empty columns. */
+.reviews-grid:has(> .review:only-child) { columns: 1; max-width: 520px; }
+.reviews-grid:has(> .review:nth-child(2):last-child) { columns: 2 320px; max-width: 740px; }
 .review {
-  margin: 0;
-  flex: 0 1 340px;
+  margin: 0 0 22px;
+  break-inside: avoid;
   background: #fbf7ee;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
