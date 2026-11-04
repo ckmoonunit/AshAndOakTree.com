@@ -9,3 +9,14 @@ FUTURE-IDEAS.md
 .DS_Store
 Thumbs.db
 *.swp
+
+# Secrets. The repo is public and GitHub Pages can serve any file in it.
+# Real values live in .env (never committed). .env.example holds names only.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+/secrets/
