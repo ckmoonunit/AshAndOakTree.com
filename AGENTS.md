@@ -38,8 +38,14 @@ ask the person who asked. Don't guess.
 - If a key ever gets committed or pushed: tell the human right away and **rotate the key**
   (make a new one, kill the old one). Deleting the line is not enough because git history
   is public.
-- Use a GitHub fine-grained token scoped to **this repo only**, with Contents read/write.
-  Nothing broader.
+- GitHub access, smallest that works:
+  - **Agent runs git on a machine (best):** an SSH **deploy key** with write access, added
+    by the repo owner under Settings > Deploy keys. It works on this one repo and nothing
+    else. Only the public half (`.pub`) is ever shared; the private half stays on that machine.
+  - **Agent only takes a token:** a **classic** token with only the `public_repo` scope,
+    named for what it is (example: `grok-ashandoaktree`), 90-day expiration. Fine-grained
+    tokens do NOT work here: GitHub blocks them on repos where you're a collaborator.
+  - One key or token per agent, so one can be revoked without breaking the others.
 - `scripts/check-site.sh` fails on tracked `.env` files, key files, and common token shapes.
   That is a backstop. It does not replace being careful.
 
