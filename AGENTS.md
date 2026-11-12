@@ -126,7 +126,7 @@ git push origin main
   - B.S. Landscape Architecture and Environmental Science.
   - Licensed Pesticide Applicator. This is the ONLY "licensed" claim allowed. Never call
     Ben or the business "licensed" otherwise. He is certified and insured.
-  - Insured: general liability and workers compensation.
+  - Insured: general liability only (no workers compensation; Ben is the only employee and works under a waiver).
   - "Fewer than 20 BCMAs in Utah" came from Ben. OK to use.
 - Consults: **$95 for up to 1.5 hours, credited toward any work booked.** No free visits,
   no next-day promises.
